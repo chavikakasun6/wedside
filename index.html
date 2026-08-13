@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAVIKA | Ultimate Athletics</title>
+    <style>
+        /* Base Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0b0f17;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background: rgba(11, 15, 23, 0.85);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 69, 0, 0.2);
+            backdrop-filter: blur(12px);
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #ff4500;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        }
+
+        .logo span { color: #fff; }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        /* Animated Nav Underline */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #ff4500;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover { color: #ff4500; }
+
+        /* Background Video Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -2;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0,0,0,0.3) 0%, rgba(11,15,23,0.85) 100%);
+            z-index: -1;
+        }
+
+        .hero-content h1 {
+            font-size: 4.5rem;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 4px;
+            animation: zoomIn 1.2s ease-out;
+        }
+
+        .hero-content h1 span { 
+            color: #ff4500; 
+            text-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: #e2e8f0;
+            margin: 15px auto 30px auto;
+            max-width: 600px;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        /* Pulse Button Animation */
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #ff4500;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 30px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 69, 0, 0.6);
+            animation: pulse 2s infinite, fadeInUp 1.6s ease-out;
+        }
+
+        .btn:hover {
+            background-color: #ff5722;
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.9);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 69, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 69, 0, 0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Section Styling */
+        section {
+            padding: 100px 8%;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title span { 
+            color: #ff4500; 
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        }
+
+        /* Clickable Cards Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        /* Animated Glowing Cards */
+        .card {
+            background: #121824;
+            padding: 40px 25px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: #ff4500;
+            box-shadow: 0 15px 30px rgba(255, 69, 0, 0.25);
+            background: #182030;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #ff4500;
+        }
+
+        .card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .card-btn {
+            font-weight: bold;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .card:hover .card-btn {
+            color: #ff4500;
+            transform: translateX(8px);
+        }
+
+        /* Video Section */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .video-box {
+            background: #121824;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: 0.4s;
+        }
+
+        .video-box:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(255, 69, 0, 0.2);
+            border-color: #ff4500;
+        }
+
+        .video-box iframe {
+            width: 100%;
+            height: 230px;
+            border: none;
+        }
+
+        .video-box h4 {
+            padding: 18px;
+            font-size: 1.1rem;
+        }
+
+        /* Scroll Reveal Effect Class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #06090e;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">CHAVIKA<span>.</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#links">Programs</a></li>
+            <li><a href="#videos">Videos</a></li>
+        </ul>
+    </nav>
+
+    <!-- Animated Hero Section -->
+    <section class="hero" id="home">
+        <video autoplay loop muted playsinline class="bg-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-runner-preparing-for-a-race-41550-large.mp4" type="video/mp4">
+        </video>
+        
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1>CHAVIKA <span>ATHLETICS</span></h1>
+            <p>Unleash your ultimate potential with futuristic track & performance training.</p>
+            <a href="#links" class="btn">Explore Programs</a>
+        </div>
+    </section>
+
+    <!-- Clickable Animated Cards -->
+    <section id="links" class="reveal">
+        <h2 class="section-title">Training <span>Categories</span></h2>
+        <div class="grid">
+
+            <a href="https://www.youtube.com" target="_blank" class="card-link">
+                <div class="card">
+                    <h3>Sprint Masterclass 🏃‍♂️</h3>
+                    <p>Click to access elite speed and acceleration training guides on YouTube.</p>
+                    <span class="card-btn">Explore Now &rarr;</span>
+                </div>
+            </a>
+
+            <a href="https://www.wikipedia.org" target="_blank" class="card-link">
+                <div class="card">
+                    <h3>Power & Gym 🏋️‍♂️</h3>
+                    <p>Build explosive leg drive and core power for max track performance.</p>
+                    <span class="card-btn">Explore Now &rarr;</span>
+                </div>
+            </a>
+
+            <a href="https://www.google.com" target="_blank" class="card-link">
+                <div class="card">
+                    <h3>Pro Nutrition 🥗</h3>
+                    <p>Get custom dietary meal plans for peak speed, stamina, and recovery.</p>
+                    <span class="card-btn">Explore Now &rarr;</span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Embedded Animated Videos Section -->
+    <section id="videos" style="background: #080c13;" class="reveal">
+        <h2 class="section-title">Featured <span>Videos</span></h2>
+        <div class="video-grid">
+            
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/3889B48x28o" allowfullscreen></iframe>
+                <h4>100m Sprint Technique & Form</h4>
+            </div>
+
+            <div class="video-box">
+                <iframe src="https://www.youtube.com/embed/v7snU-D10p0" allowfullscreen></iframe>
+                <h4>Explosive Gym Workout for Runners</h4>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CHAVIKA Athletics. Built for Champions.</p>
+    </footer>
+
+    <!-- JS For Smooth Scroll Animations -->
+    <script>
+        window.addEventListener('scroll', revealOnScroll);
+
+        function revealOnScroll() {
+            var reveals = document.querySelectorAll('.reveal');
+            
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 120;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        }
+
+        // Trigger on load once
+        revealOnScroll();
+    </script>
+
+</body>
+</html>
